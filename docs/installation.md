@@ -1,10 +1,27 @@
+# Notes Installtion Mkdcos
 
-...
+## Premiers essai
 
-git clone <lerepo>
+Sur un container de build
 
-cd <lerepo>
+```
+docker run -it -v $HOME:/root/mkdocs-test python:2.7
+pip install mkdocs-material
+cd /root/mkdocs-test
+mkdocs build
+```
 
-docker run -v /home/dockerlab1-12a/mkdocs-test:/root/mkdocs-test -p 8000:8000 -it python:2.7 bash
+Sur un conteneur de service HTTP :
 
-docker run -dit -p 8000:80 -v "$PWD/site":/usr/local/apache2/htdocs/ httpd
+```
+docker run -dit -v $PWD/site:/usr/local/apache2/htdocs -p 8080:80 httpd
+```
+
+## Suite
+
+```
+git clone lerepo
+cd lerepo
+docker run --rm -it -v ${PWD}:/docs squidfunk/mkdocs-material build
+docker run -dit -p 8080:80 -v "$PWD/site":/usr/local/apache2/htdocs/ httpd
+```
